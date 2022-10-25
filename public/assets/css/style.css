@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+        a {
+            color: rgb(223, 23, 23);
+        }
+
+        body {
+            /* background-color: slategray; */
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            line-height: 1.4;
+            font-size: 18px;
+            word-spacing: .125em;
+        }
+
+        .table-wrapper {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .floatThead-container {
+            margin-top: -2px !important;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: separate;
+            border-spacing: 0 2px;
+        }
+
+        th,
+        td {
+            padding: .25em;
+            text-align: right;
+        }
+
+        th:hover {
+            cursor: pointer
+        }
+
+        th {
+            color: white;
+            background-color: #222;
+        }
+
+        td {
+            background: rgba(25, 172, 172, 0.911);
+            border-color: rgba(0, 0, 0, 0.3);
+            color: #222;
+            border-width: 1px 0;
+            border-style: solid;
+        }
+
+        td:first-child {
+            border-width: 1px 0 1px 1px;
+        }
+
+        td:last-child {
+            border-width: 1px 1px 1px 0;
+        }
+
+        tr:nth-child(even) td {
+            background: #ccc8c8;
+        }
+
+        .league__pos,
+        .league__team {
+            text-align: justify;
+        }
+
+        .league__team,
+        .league__points {
+            font-weight: bold;
+        }
+
+        th.headerSortDown:after {
+            content: "?"
+        }
+
+        th.headerSortUp:after {
+            content: "?"
+        }

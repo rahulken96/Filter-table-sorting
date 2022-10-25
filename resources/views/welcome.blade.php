@@ -52,6 +52,7 @@
                 @endforeach
             </tbody>
         </table> --}}
+
         <table id="js-sort-table" class="league">
             <thead>
                 <tr>
@@ -72,7 +73,6 @@
                         <td class="league__points">{{ $score->score }}</td>
                         <td>
                             <form action="{{ route('score.destroy', $score->id) }} }}" method="POST" class="custom-validation">
-
                                 <a href="{{ route('score.show', $score->id) }}" type="button" data-toggle="tooltip"
                                     title="Lihat Data" class="btn btn-primary btn-lg" data-original-title="Lihat">
                                     Read

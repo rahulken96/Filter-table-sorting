@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Score;
-use App\Http\Requests\StoreScoreRequest;
-use App\Http\Requests\UpdateScoreRequest;
 use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreScoreRequest;
+use App\Http\Requests\UpdateScoreRequest;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
@@ -20,24 +20,24 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        $data = [
-            $subjects = Subject::all(),
-            $scores = Score::all(),
-            $acts = Activity::all(),
+        $items = [
+            'subjects'    => Subject::all(),
+            'scores'      => Score::all(),
         ];
 
-        foreach ($acts as $key => $act) {
-            $data = [];
-            $data['logName'] = $act->log_name;
-            $data['desc'] = $act->description;
-            // $data['proper'] = $act->properties;
-            // $data['old'] = isset($data['proper']['old']) ? $data['proper']['old'] : '[]';
-            // $data['new'] = isset($data['proper']['attributes']) ? $data['proper']['attributes'] : '[]';
-            $data['old'] = isset($act->properties['old']) ? $act->properties['old'] : '[]';
-            $data['new'] = isset($act->properties['attributes']) ? $act->properties['attributes'] : '[]';
-            $dt[$key] = $data;
-        }
-        return view('welcome',[$data, $dt]);
+        // foreach ($acts as $key => $act) {
+        //     $data = [];
+        //     $data['logName'] = $act->log_name;
+        //     $data['desc'] = $act->description;
+        //     // $data['proper'] = $act->properties;
+        //     // $data['old'] = isset($data['proper']['old']) ? $data['proper']['old'] : '[]';
+        //     // $data['new'] = isset($data['proper']['attributes']) ? $data['proper']['attributes'] : '[]';
+        //     $data['old'] = isset($act->properties['old']) ? $act->properties['old'] : '[]';
+        //     $data['new'] = isset($act->properties['attributes']) ? $act->properties['attributes'] : '[]';
+        //     $dt[$key] = $data;
+        // }
+
+        return view('welcome', $items);
     }
 
     /**
@@ -50,7 +50,8 @@ class ScoreController extends Controller
         $students = Student::all();
         $subjects = Subject::all();
         $scores = Score::all();
-        return view('add',compact('scores','subjects','students'));
+
+        return view('add', compact('scores', 'subjects', 'students'));
     }
 
     /**
@@ -70,16 +71,16 @@ class ScoreController extends Controller
 
         Score::insert([
             'student_id' => $request->student,
-            'subject_id'=> $request->subject,
+            'subject_id' => $request->subject,
             'score' => $request->score,
         ]);
 
+        // Activity::saving(function (Activity $activity) {
+        //     $activity->properties->put('ip_address', Request::ip());
+        // });
+        // Activity::get()->last();
 
-        Activity::saving(function (Activity $activity) {
-            $activity->properties->put('ip_address', Request::ip());
-        });
-        return Activity::get()->last();
-        return redirect(route('score.index'))->with('success','Data added successfully !');
+        return redirect(route('score.index'))->with('success', 'Data added successfully !');
     }
 
     /**
@@ -90,8 +91,8 @@ class ScoreController extends Controller
      */
     public function show($id)
     {
-        $scores = Score::where('id',$id)->get();
-        return view('show',compact('scores'));
+        $scores = Score::where('id', $id)->get();
+        return view('show', compact('scores'));
     }
 
     /**
@@ -102,8 +103,8 @@ class ScoreController extends Controller
      */
     public function edit($id)
     {
-        $scores = Score::where('id',$id)->get();
-        return view('update',compact('scores')) ;
+        $scores = Score::where('id', $id)->get();
+        return view('update', compact('scores'));
     }
 
     /**
@@ -125,7 +126,7 @@ class ScoreController extends Controller
             'score' => $request->score,
         ]);
 
-        return redirect(route('score.index'))->with('success','Data changed successfully !');
+        return redirect(route('score.index'))->with('success', 'Data changed successfully !');
     }
 
     /**
